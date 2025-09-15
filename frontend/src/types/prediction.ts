@@ -15,6 +15,25 @@ export interface EvidenceLink {
   }
 }
 
+export interface UserPrediction {
+  userId: string
+  confidence: number // 0-100
+  rationale?: string
+  sourceLink?: string
+  submittedAt: Date
+  lockedIn: boolean
+}
+
+export interface CrowdStats {
+  totalPredictions: number
+  averageConfidence: number
+  distribution: {
+    confident: number // 80-100%
+    moderate: number // 40-79%
+    skeptical: number // 0-39%
+  }
+}
+
 export interface VerificationResult {
   isTrue: boolean | null
   confidence: number
@@ -22,6 +41,14 @@ export interface VerificationResult {
   evidence: EvidenceLink[]
   verifiedAt: Date
   verifiedBy: string[]
+}
+
+export interface PredictionLink {
+  id: string
+  type: 'similar' | 'derivative' | 'response' | 'update'
+  targetPredictionId: string
+  relationship: string // e.g., "Similar but with different timeline", "Response to this prediction"
+  createdAt: Date
 }
 
 export interface Prediction {
@@ -40,4 +67,10 @@ export interface Prediction {
   verification?: VerificationResult
   views: number
   bookmarks: number
+  // New confidence-based prediction data
+  userPredictions: UserPrediction[]
+  crowdStats: CrowdStats
+  // Prediction linking system
+  linkedPredictions: PredictionLink[]
+  parentPredictionId?: string // If this is derived from another prediction
 }

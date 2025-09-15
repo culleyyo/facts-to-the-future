@@ -12,8 +12,33 @@ export const sampleUsers: User[] = [
       totalPredictions: 12,
       correctPredictions: 8,
       accuracy: 66.7,
-      reputation: 850
-    }
+      reputation: 850,
+      xp: 1250,
+      level: 4,
+      currentStreak: 3,
+      longestStreak: 7,
+      contrarian: 2,
+      crowdFollower: 6
+    },
+    badges: [
+      {
+        id: 'badge1',
+        name: '3 Day Streak',
+        description: 'Made predictions for 3 consecutive days',
+        icon: '🔥',
+        earnedAt: new Date('2024-09-10'),
+        type: 'streak'
+      },
+      {
+        id: 'badge2',
+        name: 'Contrarian',
+        description: 'Right when the crowd was wrong 5 times',
+        icon: '🎯',
+        earnedAt: new Date('2024-09-12'),
+        type: 'contrarian'
+      }
+    ],
+    lastPredictionDate: new Date('2024-09-14')
   },
   {
     id: 'user2',
@@ -25,8 +50,25 @@ export const sampleUsers: User[] = [
       totalPredictions: 8,
       correctPredictions: 6,
       accuracy: 75.0,
-      reputation: 720
-    }
+      reputation: 720,
+      xp: 980,
+      level: 3,
+      currentStreak: 0,
+      longestStreak: 4,
+      contrarian: 1,
+      crowdFollower: 5
+    },
+    badges: [
+      {
+        id: 'badge3',
+        name: 'Sharp Shooter',
+        description: '80%+ accuracy',
+        icon: '🏹',
+        earnedAt: new Date('2024-08-20'),
+        type: 'accuracy'
+      }
+    ],
+    lastPredictionDate: new Date('2024-09-01')
   },
   {
     id: 'user3',
@@ -38,8 +80,33 @@ export const sampleUsers: User[] = [
       totalPredictions: 15,
       correctPredictions: 11,
       accuracy: 73.3,
-      reputation: 920
-    }
+      reputation: 920,
+      xp: 1580,
+      level: 5,
+      currentStreak: 5,
+      longestStreak: 12,
+      contrarian: 3,
+      crowdFollower: 8
+    },
+    badges: [
+      {
+        id: 'badge4',
+        name: 'Week Warrior',
+        description: '7 day prediction streak',
+        icon: '⚡',
+        earnedAt: new Date('2024-07-15'),
+        type: 'streak'
+      },
+      {
+        id: 'badge5',
+        name: 'Century Club',
+        description: '100+ total predictions',
+        icon: '💯',
+        earnedAt: new Date('2024-09-01'),
+        type: 'social'
+      }
+    ],
+    lastPredictionDate: new Date('2024-09-15')
   }
 ]
 
@@ -57,7 +124,43 @@ export const samplePredictions: Prediction[] = [
     context: 'Multiple ongoing investigations suggest additional charges are likely',
     status: 'active',
     views: 1247,
-    bookmarks: 89
+    bookmarks: 89,
+    userPredictions: [
+      {
+        userId: 'user1',
+        confidence: 75,
+        rationale: 'Timeline suggests high probability based on prosecutor statements',
+        sourceLink: 'https://example.com/analysis',
+        submittedAt: new Date('2024-09-16'),
+        lockedIn: true
+      },
+      {
+        userId: 'user2',
+        confidence: 45,
+        rationale: 'Too many variables, could be delayed',
+        submittedAt: new Date('2024-09-16'),
+        lockedIn: true
+      },
+      {
+        userId: 'user3',
+        confidence: 80,
+        rationale: 'Author prediction - strong confidence in sources',
+        sourceLink: 'https://example.com/legal-analysis',
+        submittedAt: new Date('2024-09-15'),
+        lockedIn: true
+      }
+    ],
+    crowdStats: {
+      totalPredictions: 23,
+      averageConfidence: 67,
+      distribution: {
+        confident: 8, // 80-100%
+        moderate: 11, // 40-79%
+        skeptical: 4  // 0-39%
+      }
+    },
+    linkedPredictions: [],
+    parentPredictionId: undefined
   },
   {
     id: 'pred2',
@@ -72,7 +175,28 @@ export const samplePredictions: Prediction[] = [
     context: 'Drake has been hinting at new music on social media',
     status: 'active',
     views: 892,
-    bookmarks: 156
+    bookmarks: 156,
+    userPredictions: [
+      {
+        userId: 'user1',
+        confidence: 85,
+        rationale: 'Strong social media hints and industry patterns',
+        sourceLink: 'https://example.com/drake-rumors',
+        submittedAt: new Date('2024-09-10'),
+        lockedIn: true
+      }
+    ],
+    crowdStats: {
+      totalPredictions: 12,
+      averageConfidence: 72,
+      distribution: {
+        confident: 6,
+        moderate: 5,
+        skeptical: 1
+      }
+    },
+    linkedPredictions: [],
+    parentPredictionId: undefined
   },
   {
     id: 'pred3',
@@ -88,6 +212,12 @@ export const samplePredictions: Prediction[] = [
     status: 'expired',
     views: 2341,
     bookmarks: 67,
+    userPredictions: [],
+    crowdStats: {
+      totalPredictions: 0,
+      averageConfidence: 0,
+      distribution: { confident: 0, moderate: 0, skeptical: 0 }
+    },
     verification: {
       isTrue: false,
       confidence: 85,
@@ -105,7 +235,9 @@ export const samplePredictions: Prediction[] = [
       ],
       verifiedAt: new Date('2024-09-05'),
       verifiedBy: ['user1', 'user2', 'user3']
-    }
+    },
+    linkedPredictions: [],
+    parentPredictionId: undefined
   },
   {
     id: 'pred4',
@@ -121,6 +253,12 @@ export const samplePredictions: Prediction[] = [
     status: 'verified',
     views: 3456,
     bookmarks: 234,
+    userPredictions: [],
+    crowdStats: {
+      totalPredictions: 0,
+      averageConfidence: 0,
+      distribution: { confident: 0, moderate: 0, skeptical: 0 }
+    },
     verification: {
       isTrue: true,
       confidence: 92,
@@ -138,7 +276,9 @@ export const samplePredictions: Prediction[] = [
       ],
       verifiedAt: new Date('2024-09-22'),
       verifiedBy: ['user1', 'user3']
-    }
+    },
+    linkedPredictions: [],
+    parentPredictionId: undefined
   },
   {
     id: 'pred5',
@@ -153,7 +293,47 @@ export const samplePredictions: Prediction[] = [
     context: 'Q3 delivery numbers and new model launches support bullish outlook',
     status: 'active',
     views: 1876,
-    bookmarks: 123
+    bookmarks: 123,
+    userPredictions: [],
+    crowdStats: {
+      totalPredictions: 0,
+      averageConfidence: 0,
+      distribution: { confident: 0, moderate: 0, skeptical: 0 }
+    },
+    linkedPredictions: [],
+    parentPredictionId: undefined
+  },
+  // Example of a linked prediction
+  {
+    id: 'pred6',
+    title: 'Tesla stock will hit $350 by end of year',
+    description: 'Even more bullish prediction based on recent developments',
+    category: 'market' as PredictionCategory,
+    expirationDate: new Date('2024-12-31'),
+    createdAt: new Date('2024-09-16'),
+    authorId: 'user2',
+    author: sampleUsers[1],
+    sourceLink: 'https://example.com/tesla-bull-case',
+    context: 'Similar to Ian\'s prediction but with higher target based on AI announcements',
+    status: 'active',
+    views: 234,
+    bookmarks: 18,
+    userPredictions: [],
+    crowdStats: {
+      totalPredictions: 3,
+      averageConfidence: 85,
+      distribution: { confident: 2, moderate: 1, skeptical: 0 }
+    },
+    linkedPredictions: [
+      {
+        id: 'link1',
+        type: 'similar',
+        targetPredictionId: 'pred5',
+        relationship: 'Similar prediction with higher price target',
+        createdAt: new Date('2024-09-16')
+      }
+    ],
+    parentPredictionId: 'pred5'
   }
 ]
 
